@@ -1,8 +1,13 @@
 import 'package:emart_app/core/consts/consts.dart';
 import 'package:emart_app/core/consts/list.dart';
 import 'package:emart_app/core/widgets/bg_wigets.dart';
+import 'package:emart_app/features/auth/controllers/auth_controller.dart';
+import 'package:emart_app/features/auth_screen/views/login_screen.dart';
 import 'package:emart_app/features/profile_screen/components/details_card.dart';
+import 'package:emart_app/features/profile_screen/view/edit_profile_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -12,11 +17,17 @@ class ProfileScreen extends StatelessWidget {
     return bgWidget(Scaffold(
       body: SafeArea(
         child: Column(children: [
-          const Padding(
-            padding: EdgeInsets.all(8.0),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
             child: Align(
-                alignment: Alignment.topRight,
-                child: Icon(Icons.edit, color: whiteColor)),
+              alignment: Alignment.topRight,
+              child: GestureDetector(
+                onTap: () {
+                  Get.to(() => const EditProfileScreen());
+                },
+                child: const Icon(Icons.edit, color: whiteColor),
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -24,7 +35,7 @@ class ProfileScreen extends StatelessWidget {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    shape: BoxShape.circle, // يجعل الخلفية دائرية
+                    shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.1),
@@ -62,7 +73,10 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ),
                 OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    await Get.put(AuthController()).signoutMethod(context);
+                    Get.offAll(() => const LoginScreen());
+                  },
                   style: OutlinedButton.styleFrom(
                       side: const BorderSide(color: whiteColor)),
                   child: const Text(

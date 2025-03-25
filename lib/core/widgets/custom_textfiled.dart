@@ -2,7 +2,7 @@ import 'package:emart_app/core/consts/colors.dart';
 import 'package:emart_app/core/consts/styles.dart';
 import 'package:flutter/material.dart';
 
-Widget customTextField({String? title, String? hint, controllar}) {
+Widget customTextField({String? title, String? hint, controllar, isPass}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -15,9 +15,11 @@ Widget customTextField({String? title, String? hint, controllar}) {
       ),
       const SizedBox(height: 5),
       TextFormField(
+        obscureText: isPass,
         controller: controllar,
         decoration: InputDecoration(
-            hintStyle: const TextStyle(fontFamily: semibold, color: textfieldGrey),
+            hintStyle:
+                const TextStyle(fontFamily: semibold, color: textfieldGrey),
             hintText: hint,
             isDense: true,
             fillColor: lightGrey,

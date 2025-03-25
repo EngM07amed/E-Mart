@@ -1,12 +1,16 @@
-import 'package:emart_app/features/categories_screen/view/categories_screen.dart';
-import 'package:emart_app/features/profile_screen/view/profile_screen.dart';
 import 'package:emart_app/features/splash_screen/views/splash_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'core/consts/consts.dart';
 import 'package:device_preview/device_preview.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(
     DevicePreview(
       enabled: true,
