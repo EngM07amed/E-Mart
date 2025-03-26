@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:emart_app/core/consts/firebase_consts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -35,18 +34,27 @@ class AuthController extends GetxController {
     }
   }
 
-  storeUserData(
+  Future<void> storeUserData(
       {required String name,
       required String email,
       required String password}) async {
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .set({
-      'name': name,
-      'email': email,
-      'password': password,
-    });
+    try {
+      await firestore
+          .collection(userCollection)
+          .doc(auth.currentUser!.uid)
+          .set({
+        'name': name,
+        'email': email,
+        'password': password,
+        'imageUrl': '',
+        'id': auth.currentUser!.uid,
+        'cart_count': '00',
+        'wishlist_count': '00',
+        'order_count': '00',
+      });
+    } catch (e) {
+      Get.snackbar("Error", e.toString());
+    }
   }
 
   signoutMethod(context) async {

@@ -16,7 +16,7 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  bool? isCheck = false;
+  bool isCheck = false;
   var controller = Get.put(AuthController());
 
   var nameController = TextEditingController();
@@ -77,30 +77,79 @@ class _SignupScreenState extends State<SignupScreen> {
                         controllar: passwordRetypeController,
                         isPass: true),
                     const SizedBox(height: 10),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width - 50,
-                      child: ourButton(
-                        title: signup,
-                        onpress: () async {
-                          if (isCheck == true) {
-                            await controller
-                                .signUpMethod(
-                                    email: emailController.text,
-                                    password: passwordController.text,
-                                    context: context)
-                                .then((value) => controller.storeUserData(
-                                    email: emailController.text,
-                                    password: passwordController.text,
-                                    name: nameController.text))
-                                .then((_) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text(loggedin)));
-                              Get.offAll(() => const Home());
+
+                    // ✅ Checkbox Terms & Conditions
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: isCheck,
+                          onChanged: (newValue) {
+                            setState(() {
+                              isCheck = newValue!;
                             });
-                          }
-                        },
-                        textcolor: Colors.white,
-                        color: isCheck == true ? redColor : lightGrey,
+                          },
+                        ),
+                        const Expanded(
+                          child: Text(
+                            "I agree to the Terms and Conditions",
+                            style: TextStyle(fontSize: 12, color: fontGrey),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    // ✅ زر التسجيل
+                    Obx(
+                      () => SizedBox(
+                        width: MediaQuery.of(context).size.width - 50,
+                        child: controller.isloading.value
+                            ? const CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation(redColor))
+                            : ourButton(
+                                title: signup,
+                                onpress: () async {
+                                  if (isCheck) {
+                                    if (passwordController.text ==
+                                        passwordRetypeController.text) {
+                                      controller.isloading(true);
+                                      await controller
+                                          .signUpMethod(
+                                              email: emailController.text,
+                                              password: passwordController.text,
+                                              context: context)
+                                          .then((value) {
+                                        if (value != null) {
+                                          controller.storeUserData(
+                                            email: emailController.text,
+                                            password: passwordController.text,
+                                            name: nameController.text,
+                                          );
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(const SnackBar(
+                                                  content: Text(loggedin)));
+                                          Get.offAll(() => const Home());
+                                        } else {
+                                          controller.isloading(false);
+                                        }
+                                      });
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              content: Text(
+                                                  "Passwords do not match")));
+                                    }
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                            content: Text(
+                                                "Please accept the terms & conditions")));
+                                  }
+                                },
+                                textcolor: Colors.white,
+                                color: isCheck ? redColor : lightGrey,
+                              ),
                       ),
                     ),
                   ],

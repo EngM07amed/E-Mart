@@ -77,7 +77,7 @@ class LoginScreen extends StatelessWidget {
                                       .then((value) {
                                     if (value != null) {
                                       ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
+                                          .showSnackBar(const SnackBar(
                                               content: Text(loggedin)));
                                       Get.offAll(() => const Home());
                                     } else {

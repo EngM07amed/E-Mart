@@ -47,6 +47,8 @@ dependencies:
   # firebase_database:
   cloud_firestore:
   # firebase_remote_config:
+  image_picker:
+  fluttertoast: ^8.2.12
 
 
 
@@ -77,6 +79,7 @@ flutter:
     - assets/
     - assets/icons/
     - assets/images/
+    - lib/core/services/category_model.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

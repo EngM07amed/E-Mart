@@ -17,14 +17,14 @@ const featuredImages2 = [imgS4, imgS5, imgS6];
 const featuredTitles1 = [womenDress, girlsWatches, gilsDress];
 const featuredTitles2 = [boyesGlasses, mobilePhone, tShirt];
 const categoriesList = [
-  womenDress,
-  cellPhone,
   menClothingFashion,
   compAccessories,
+  car,
   kidToys,
   sports,
-  automobile,
-  jewelery,
+  cellPhone,
+  makeup,
+  workclothes,
   furniture
 ];
 

@@ -37,14 +37,14 @@ const searchanything = 'Search anything',
     featuredProducts = 'Featured Products',
     featuredCategories = 'Featured Categories';
 //category strings
-const womenClothing = ' Women Clothing',
-    menClothingFashion = 'Men Clothing & Fashion',
+const menClothingFashion = 'Men Clothing & Fashion',
     compAccessories = 'Computer & Accessories',
-    automobile = 'Automobile',
+    car = 'cars',
     kidToys = 'Kids & Toys',
     sports = 'Sports',
-    jewelery = 'Jewelery',
     cellPhone = 'CellPhone & Tab',
+    makeup = 'Makeup ',
+    workclothes = 'Work Clothes',
     furniture = 'Furniture';
 //items details strings
 const video = 'Video',
